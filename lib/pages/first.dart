@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:task/pages/cards.dart';
 
 class First extends StatefulWidget {
   const First({super.key});
@@ -45,132 +46,145 @@ class _FirstState extends State<First> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Align(
-                  alignment: Alignment(-0.9, 0),
-                  child: Image.asset('assets/Group.png'),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment(-0.9, 0),
+                    child: Image.asset('assets/Group.png'),
+                  ),
                 ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Align(
-                  alignment: Alignment(-0.9, 0),
-                  child: Text(
-                    'Attendance',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
+                Expanded(
+                  flex: 2,
+                  child: Align(
+                    alignment: Alignment(-0.9, 0),
+                    child: Text(
+                      'Attendance',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                MonthYearDropdowns(
-                  selectedMonth: selectedMonth,
-                  selectedYear: selectedYear,
-                  onMonthChanged: (String month) {
-                    updateSelectedMonth(month);
-                    _focusedDay = DateTime(_focusedDay.year, 1);
-                    //// Update the selectedMonth variable
-                  },
-                  onYearChanged: (String year) {
-                    setState(() {
-                      selectedYear = year;
-                      _calendarKey.currentState!._focusedDay =
-                          DateTime(int.parse(year), _focusedDay.month,1);
-                    });
-                  },
-                ),
-                Text(
-                  "All",
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-                Image.asset("assets/Vector.png"),
               ],
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-            child: CalendarWidget(
-              key: _calendarKey,
-              onMonthChanged: (month) {
-                setState(() {
-                  selectedMonth = month;
-                });
-              },
-              onYearChanged: (String value) {},
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  MonthYearDropdowns(
+                    selectedMonth: selectedMonth,
+                    selectedYear: selectedYear,
+                    onMonthChanged: (String month) {
+                      updateSelectedMonth(month);
+                      _focusedDay = DateTime(_focusedDay.year, 1);
+                      //// Update the selectedMonth variable
+                    },
+                    onYearChanged: (String year) {
+                      setState(() {
+                        selectedYear = year;
+                        _calendarKey.currentState!._focusedDay =
+                            DateTime(int.parse(year), _focusedDay.month, 1);
+                      });
+                    },
+                  ),
+                  Text(
+                    "All",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  Image.asset("assets/Vector.png"),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(35, 10, 35, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Present :23d",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
+            Padding(
+              padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+              child: CalendarWidget(
+                key: _calendarKey,
+                onMonthChanged: (month) {
+                  setState(() {
+                    selectedMonth = month;
+                  });
+                },
+                onYearChanged: (String value) {},
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(35, 10, 35, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Present :23d",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    "Absent :7d",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(25),
+              child: SizedBox(
+                height: 15,
+                width: 340,
+                child: LinearProgressIndicator(
+                  value: (23 - 7) / 23,
+                  color: Color(0xFF2E3192),
+                  backgroundColor: Color(0xFFC4D5E9),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              height: 40,
+              width: 150,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF2E3192),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                Text(
-                  "Absent :7d",
+                child: Text(
+                  "Summary",
                   style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
+                    fontSize: 20,
                   ),
-                )
-              ],
-            ),
-          ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(25),
-            child: SizedBox(
-              height: 15,
-              width: 340,
-              child: LinearProgressIndicator(
-                value: (23 - 7) / 23,
-                color: Color(0xFF2E3192),
-                backgroundColor: Color(0xFFC4D5E9),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            height: 40,
-            width: 150,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF2E3192),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: Text(
-                "Summary",
-                style: TextStyle(
-                  fontSize: 20,
                 ),
               ),
             ),
-          )
-        ],
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10,0, 10, 0),
+              child: Cards(),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10,0, 10, 0),
+              child: Cards(),
+            )
+          ],
+        ),
       ),
     ));
   }
@@ -215,9 +229,13 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         _focusedDay = focusedDay;
         final month = DateFormat('MMMM').format(focusedDay);
         widget.onMonthChanged(month);
-
-        final year = focusedDay.year.toString();
-        widget.onYearChanged(year);
+        if (month == 'December') {
+          int nextYear = focusedDay.year + 1;
+          widget.onYearChanged(nextYear.toString());
+        } else {
+          final year = focusedDay.year.toString();
+          widget.onYearChanged(year);
+        }
       },
       calendarStyle: CalendarStyle(
         selectedDecoration: BoxDecoration(
