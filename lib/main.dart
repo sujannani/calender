@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:task/pages/first.dart';
+import 'package:task/pages/calender.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(debugShowCheckedModeBanner: false, routes: {
-      '/': (context) => First(),
+      '/': (context) => Calender(),
     });
   }
 }

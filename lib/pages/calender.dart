@@ -3,14 +3,14 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:task/pages/cards.dart';
 
-class First extends StatefulWidget {
-  const First({super.key});
+class Calender extends StatefulWidget {
+  const Calender({super.key});
 
   @override
-  State<First> createState() => _FirstState();
+  State<Calender> createState() => _CalenderState();
 }
 
-class _FirstState extends State<First> {
+class _CalenderState extends State<Calender> {
   final GlobalKey<_CalendarWidgetState> _calendarKey =
       GlobalKey<_CalendarWidgetState>();
   final List<String> months = [
@@ -176,11 +176,11 @@ class _FirstState extends State<First> {
               height: 10,
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10,0, 10, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Cards(),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10,0, 10, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Cards(),
             )
           ],
@@ -229,13 +229,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         _focusedDay = focusedDay;
         final month = DateFormat('MMMM').format(focusedDay);
         widget.onMonthChanged(month);
-        if (month == 'December') {
-          int nextYear = focusedDay.year + 1;
-          widget.onYearChanged(nextYear.toString());
-        } else {
-          final year = focusedDay.year.toString();
-          widget.onYearChanged(year);
-        }
+        final year = focusedDay.year.toString();
+        widget.onYearChanged(year);
       },
       calendarStyle: CalendarStyle(
         selectedDecoration: BoxDecoration(
@@ -346,18 +341,19 @@ class _MonthYearDropdownsState extends State<MonthYearDropdowns> {
             );
           }).toList(),
         ),
-        Text(' | ',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
-            )),
+        Text(
+          ' | ',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
+        ),
         DropdownButton<String>(
           elevation: 0,
           value: selectedYear,
           onChanged: (String? newValue) {
             setState(() {
               selectedYear = newValue!;
-              print(selectedYear);
               widget.onYearChanged(newValue);
             });
           },
